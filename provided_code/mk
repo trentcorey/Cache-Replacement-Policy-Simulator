@@ -1,0 +1,2 @@
+gcc -o splaytest splaytest.c splay.c  -static -lm
+#gcc -o splaytest splaytest.c splay.c  -static -lgsl -lgslcblas -lm

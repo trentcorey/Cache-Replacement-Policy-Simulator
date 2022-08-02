@@ -1,0 +1,30 @@
+The code for the prirority queue is contained in: splay.h splay.c. A splay tree is used to implement the priroity queue.
+
+Check splay.h for the description of the functions.
+
+splaytest.c contains a very crude test code that uses splay.c. You should read the code in order to understand how to use splay.c.
+Note that the Event structure and EventTree are defined to mirror the internal data structures defined in splay.h. 
+
+Your code should not directly access the splay tree variables defined in splay.c/splay.h. Instead, you should work with Event and EventTree.
+
+Note the type casting to convert Event and EventTree to the structures defined in splay.h/splay.c when calling the splay tree functions.
+
+
+In your simulation, you can add variables to the Event structure. For instance, you can add a variable to differentiated different event types.  One way to do that in C is to use a function pointer, which points to the function to be executed when the event is processed. Different types of events will be assigned different function pointers, each pointing to a different processing function. You can also add variables for various book-keeping purposes.
+
+
+
+How to compile splaytest:
+There is an executable text file 'mk'. If your system provides a typical Linux environment, you can simply type: ./mk
+Otherwise, check the text in mk and see what can be modified.
+There is also a Makefile. You can type 'make' on Linux and it probably will work. The Makefile is overly complicated for what is needed for the simple splaytest program. You can modify it and use it for your full simulator.
+
+How to run splaytest:
+./splaytest num
+
+
+What does splaytest.c do:
+splaytest.c allocates an array of Events. The array size is the input 'num'. Each event has an event time, which is called 'key'. The events are inserted into the splay tree one by one. In the main while loop, the events are taken out of the tree one after another, according to key value (event time). You can see this by printing out the key values.
+
+The splaytest code is useful to test how fast the priroity queue works. You can modify it to test various scenarios. In your own simulation, you should not allocate a large array of events statically. Instead, you dynamically allocate one event at a time as needs arise and free it after use. If you are concerned with the memory allocation/de-allocation penalty on the speed of simulation, you can use the freelist approach: You maintain a small list of free events, with a limit of, say, a few hundred depending on your simulation need. When you run out of free events on the list, you allocate another event. Before you free up an event (return it to memory), you first check if your free list has fewer events than the a pre-specified limit; if so, you return the event to the free list rather than de-allocate the memory.
+
